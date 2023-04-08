@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Lightbender_Minecraft_Mod_Manager.Models;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Lightbender_Minecraft_Mod_Manager.ViewModels;
@@ -10,9 +11,10 @@ internal class ModsInfoViewModel : BindableObject
     //public ObservableCollection<ViewModels.ModInfoViewModel> AllModsInfo { get; }
     public ICommand SelectModCommand { get; }
     private readonly Settings appSettings;
-
-    public ModsInfoViewModel(ModInfo modInfo)
+    private ModInfo _modinfo;
+    public ModsInfoViewModel()
     {
+        _modinfo = new ModInfo();
         appSettings = Settings.LoadAsync().Result;
         AllModsInfo = new ObservableCollection<ModInfoViewModel>(Models.ModInfo.LoadAll(appSettings.ModDirectories.SourceModPath).Select(m => new ModInfoViewModel(m)));
  
