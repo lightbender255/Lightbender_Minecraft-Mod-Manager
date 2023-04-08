@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
              xmlns:viewmodels="clr-namespace:Lightbender_Minecraft_Mod_Manager.ViewModels"
              x:Class="Lightbender_Minecraft_Mod_Manager.Views.SettingsPage"
              Title="Settings">
-
+    <!--<ContentPage.BindingContext>
+        <viewModels:SettingsViewModel />
+    </ContentPage.BindingContext>-->
     <StackLayout>
         <Entry Placeholder="Source Mod Path" Text="{Binding SourceModPath}" />
         <Entry Placeholder="Client Mods Path" Text="{Binding ClientModsPath}" />

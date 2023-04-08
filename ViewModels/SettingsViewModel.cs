@@ -46,20 +46,21 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private ICommand _saveSettingsCommand;
         public ICommand SaveSettingsCommand
         {
             get
             {
-                throw new NotImplementedException("Not Implemented");
-                //        if(_saveSettingsCommand == null)
-                //        {
-                //            _saveSettingsCommand = new Command(async () => 
-                //            {
-                //                // Save settings to the user's AppData folder
+                if (_saveSettingsCommand == null)
+                {
+                    throw new NotImplementedException("Not Implemented");
+                    //_saveSettingsCommand = new Command(async () =>
+                    //{
+                    //    // Save settings to the user's AppData folder
 
-                //            });
-                //        }
-                //        return _saveSettingsCommand;
+                    //});
+                }
+                return _saveSettingsCommand;
             }
         }
     }
