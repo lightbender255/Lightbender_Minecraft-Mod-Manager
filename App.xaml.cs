@@ -1,4 +1,5 @@
-﻿using Lightbender_Minecraft_Mod_Manager.Models;
+﻿using CommunityToolkit.Maui.Alerts;
+using Lightbender_Minecraft_Mod_Manager.Models;
 
 namespace Lightbender_Minecraft_Mod_Manager
 {
@@ -16,6 +17,8 @@ namespace Lightbender_Minecraft_Mod_Manager
         {
             // Handle when your app starts
             CurrentSettings = await Models.Settings.LoadAsync();
+
+            await Toast.Make($"LBFF-MMM Settings loaded.\n Client: {CurrentSettings.ModDirectories.ClientModPath}", duration: CommunityToolkit.Maui.Core.ToastDuration.Long).Show();
         }
     }
 }

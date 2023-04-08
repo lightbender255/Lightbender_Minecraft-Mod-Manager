@@ -11,7 +11,7 @@ internal class ModsInfoViewModel : BindableObject
     //public ObservableCollection<ViewModels.ModInfoViewModel> AllModsInfo { get; }
     public ICommand SelectModCommand { get; }
     private readonly Settings appSettings;
-    private ModInfo _modinfo;
+    private readonly ModInfo _modinfo;
     public ModsInfoViewModel()
     {
         _modinfo = new ModInfo();

@@ -56,22 +56,10 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
 
         public SettingsViewModel()
         {
-            BrowseCommand = new Command<string>(Browse);            
-        }
-
-        private async Task LoadSettingsAsync()
-        {
-            try
-            {
-                var settings = await Settings.LoadAsync();
-                SourceModsPath = settings.ModDirectories.SourceModPath;
-                ClientModsPath = settings.ModDirectories.ClientModPath;
-                ServerModsPath = settings.ModDirectories.ServerModPath;
-            }
-            catch (Exception)
-            {
-                throw new FileNotFoundException(nameof(BrowseCommand));
-            }
+            BrowseCommand = new Command<string>(Browse);
+            _sourceModsPath = SourceModsPath;
+            _clientModsPath = SourceModsPath;
+            _serverModsPath = SourceModsPath;
         }
 
         private ICommand _saveSettingsCommand;
