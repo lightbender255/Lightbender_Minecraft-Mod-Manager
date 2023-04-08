@@ -9,11 +9,11 @@ internal class ModsInfoViewModel : BindableObject
     private readonly ModInfo _modInfo;
     //public ObservableCollection<ViewModels.ModInfoViewModel> AllModsInfo { get; }
     public ICommand SelectModCommand { get; }
-    private readonly AppSettings appSettings;
-    //private readonly sourcePath=
+    private readonly Settings appSettings;
+
     public ModsInfoViewModel(ModInfo modInfo)
     {
-        appSettings = AppSettings.LoadAsync().Result;
+        appSettings = Settings.LoadAsync().Result;
         AllModsInfo = new ObservableCollection<ModInfoViewModel>(Models.ModInfo.LoadAll(appSettings.ModDirectories.SourceModPath).Select(m => new ModInfoViewModel(m)));
         EntryPoints = new ObservableCollection<string>();
         foreach (var entryPoint in modInfo.EntryPoints)

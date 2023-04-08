@@ -14,7 +14,12 @@
 
         <ShellContent
             Title="Mod Manager"
-            ContentTemplate="{DataTemplate views:ModInfoPage}"
+            ContentTemplate="{DataTemplate views:ModManagerPage}"
+            Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}" />
+
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate views:SettingsPage}"
             Icon="{OnPlatform 'icon_about.png', iOS='icon_about_ios.png', MacCatalyst='icon_about_ios.png'}" />
     </TabBar>
 

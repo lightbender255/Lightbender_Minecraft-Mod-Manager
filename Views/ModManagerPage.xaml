@@ -4,9 +4,9 @@
              xmlns:viewmodels="clr-namespace:Lightbender_Minecraft_Mod_Manager.ViewModels" xmlns:views="clr-namespace:Lightbender_Minecraft_Mod_Manager.Views"
              x:Class="Lightbender_Minecraft_Mod_Manager.Views.ModManagerPage"
              Title="Mod Manager">
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <viewModels:ModsInfoViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*" />
