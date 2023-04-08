@@ -9,8 +9,8 @@ namespace Lightbender_Minecraft_Mod_Manager.Views
     {
         public SettingsPage()
         {
-            InitializeComponent();
             BindingContext = new SettingsViewModel();
+            InitializeComponent();
         }
     }
 }

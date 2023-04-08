@@ -1,4 +1,8 @@
-﻿using System.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Storage;
+using Lightbender_Minecraft_Mod_Manager.Models;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -6,13 +10,17 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
 {
     public class SettingsViewModel : INotifyPropertyChanged
     {
-        private string _sourceModPath;
-        public string SourceModPath
+        private string _sourceModsPath;
+        public SettingsViewModel()
         {
-            get => _sourceModPath;
+            BrowseCommand = new Command<string>(Browse);
+        }
+        public string SourceModsPath
+        {
+            get => _sourceModsPath;
             set
             {
-                _sourceModPath = value;
+                _sourceModsPath = value;
                 OnPropertyChanged();
             }
         }
@@ -28,13 +36,13 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
             }
         }
 
-        private string _serverModPath;
-        public string ServerModPath
+        private string _serverModsPath;
+        public string ServerModsPath
         {
-            get => _serverModPath;
+            get => _serverModsPath;
             set
             {
-                _serverModPath = value;
+                _serverModsPath = value;
                 OnPropertyChanged();
             }
         }
@@ -53,14 +61,53 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
             {
                 if (_saveSettingsCommand == null)
                 {
-                    throw new NotImplementedException("Not Implemented");
-                    //_saveSettingsCommand = new Command(async () =>
-                    //{
-                    //    // Save settings to the user's AppData folder
 
-                    //});
+                    _saveSettingsCommand = new Command(async () =>
+                    {
+                        // Call the Save method of the AppSettings class to save the settings.
+                        var appSettings = new Settings();
+                        appSettings.ModDirectories.SourceModPath = SourceModsPath;
+                        appSettings.ModDirectories.ClientModPath = ClientModsPath;
+                        appSettings.ModDirectories.ServerModPath = ServerModsPath;
+
+                        await Settings.SaveAsync(appSettings);
+                    });
                 }
                 return _saveSettingsCommand;
+            }
+        }
+
+        public ICommand BrowseCommand { get; }
+
+        private async void Browse(string fieldName)
+        {
+            var cancellationToken = new CancellationToken();
+
+            var result = await FolderPicker.Default.PickAsync(cancellationToken);
+
+            if (result.IsSuccessful)
+            {
+                await Toast.Make($"The folder was picked: Name - {result.Folder.Name}, Path - {result.Folder.Path}", ToastDuration.Long).Show(cancellationToken);
+
+                switch (fieldName)
+                {
+                    case "SourceModsPath":
+                        SourceModsPath = result.Folder.Path;
+
+                        break;
+                    case "ClientModsPath":
+                        ClientModsPath = result.Folder.Path;
+                        break;
+                    case "ServerModsPath":
+                        ServerModsPath = result.Folder.Path;
+                        break;
+                }
+
+
+            }
+            else
+            {
+                await Toast.Make($"The folder was not picked with error: {result.Exception.Message}", ToastDuration.Long).Show(cancellationToken);
             }
         }
     }
