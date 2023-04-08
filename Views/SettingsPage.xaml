@@ -5,15 +5,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
              xmlns:viewmodels="clr-namespace:Lightbender_Minecraft_Mod_Manager.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Lightbender_Minecraft_Mod_Manager.Views.SettingsPage"
              Title="Settings">
-    <!--<ContentPage.BindingContext>
-        <viewModels:SettingsViewModel />
-    </ContentPage.BindingContext>-->
-    <StackLayout>
-        <Entry Placeholder="Source Mod Path" Text="{Binding SourceModPath}" />
-        <Entry Placeholder="Client Mods Path" Text="{Binding ClientModsPath}" />
-        <Entry Placeholder="Server Mod Path" Text="{Binding ServerModPath}" />
+    <ContentPage.BindingContext>
+        <viewmodels:SettingsViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout Margin="20">
+        <Label Text="Source Directory" FontAttributes="Bold" />
+        <StackLayout Orientation="Horizontal">
+            <Entry Placeholder="Source Path" Text="{Binding SourceModsPath}" />
+            <Button Text="Browse" Command="{Binding BrowseCommand}" CommandParameter="SourceModsPath" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Entry Placeholder="Client Mods Path" Text="{Binding ClientModsPath}" />
+            <Button Text="Browse" Command="{Binding BrowseCommand}" CommandParameter="ClientModsPath" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Entry Placeholder="Server Mod Path" Text="{Binding ServerModPath}" />
+            <Button Text="Browse" Command="{Binding BrowseCommand}" CommandParameter="ServerModsPath" />
+        </StackLayout>
         <Button Text="Save" Command="{Binding SaveSettingsCommand}" />
     </StackLayout>
 
