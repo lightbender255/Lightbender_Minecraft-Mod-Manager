@@ -11,6 +11,19 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
 {
     public class SettingsViewModel : INotifyPropertyChanged
     {
+        public ICommand BrowseCommand { get; }
+
+        public SettingsViewModel()
+        {
+            BrowseCommand = new Command<string>(Browse);
+            if (App.LoadedSettings != null)
+            {
+                SourceModsPath = App.LoadedSettings.ModDirectories.SourceModPath;
+                ClientModsPath = App.LoadedSettings.ModDirectories.ClientModPath;
+                ServerModsPath = App.LoadedSettings.ModDirectories.ServerModPath;
+            }
+        }
+
         private string _sourceModsPath;
         
         public string SourceModsPath
@@ -52,16 +65,6 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public ICommand BrowseCommand { get; }
-
-        public SettingsViewModel()
-        {
-            BrowseCommand = new Command<string>(Browse);
-            _sourceModsPath = SourceModsPath;
-            _clientModsPath = SourceModsPath;
-            _serverModsPath = SourceModsPath;
-        }
-
         private ICommand _saveSettingsCommand;
         public ICommand SaveSettingsCommand
         {
@@ -85,6 +88,7 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
                 return _saveSettingsCommand;
             }
         }
+
         private async void Browse(string fieldName)
         {
             var cancellationToken = new CancellationToken();

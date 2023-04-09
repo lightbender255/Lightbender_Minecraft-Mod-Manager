@@ -15,7 +15,7 @@ internal class ModsInfoViewModel : BindableObject
     public ModsInfoViewModel()
     {
         _modinfo = new ModInfo();
-        appSettings = Settings.LoadAsync().Result;
+        //appSettings = Settings.LoadAsync().Result;
         AllModsInfo = new ObservableCollection<ModInfoViewModel>(Models.ModInfo.LoadAll(appSettings.ModDirectories.SourceModPath).Select(m => new ModInfoViewModel(m)));
  
         SelectModCommand = new AsyncRelayCommand<ViewModels.ModInfoViewModel>(SelectModAsync);
