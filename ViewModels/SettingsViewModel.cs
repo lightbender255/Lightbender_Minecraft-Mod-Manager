@@ -4,17 +4,28 @@ using CommunityToolkit.Maui.Storage;
 using Lightbender_Minecraft_Mod_Manager.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows.Input;
 
 namespace Lightbender_Minecraft_Mod_Manager.ViewModels
 {
     public class SettingsViewModel : INotifyPropertyChanged
     {
-        private string _sourceModsPath;
+        public ICommand BrowseCommand { get; }
+
         public SettingsViewModel()
         {
             BrowseCommand = new Command<string>(Browse);
+            if (App.LoadedSettings != null)
+            {
+                SourceModsPath = App.LoadedSettings.ModDirectories.SourceModPath;
+                ClientModsPath = App.LoadedSettings.ModDirectories.ClientModPath;
+                ServerModsPath = App.LoadedSettings.ModDirectories.ServerModPath;
+            }
         }
+
+        private string _sourceModsPath;
+        
         public string SourceModsPath
         {
             get => _sourceModsPath;
@@ -59,25 +70,24 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
         {
             get
             {
-                if (_saveSettingsCommand == null)
+                if (_saveSettingsCommand != null)
                 {
-
-                    _saveSettingsCommand = new Command(async () =>
-                    {
-                        // Call the Save method of the AppSettings class to save the settings.
-                        var appSettings = new Settings();
-                        appSettings.ModDirectories.SourceModPath = SourceModsPath;
-                        appSettings.ModDirectories.ClientModPath = ClientModsPath;
-                        appSettings.ModDirectories.ServerModPath = ServerModsPath;
-
-                        await Settings.SaveAsync(appSettings);
-                    });
+                    return _saveSettingsCommand;
                 }
+
+                _saveSettingsCommand = new Command(async () =>
+                {
+                    // Call the Save method of the AppSettings class to save the settings.
+                    var appSettings = new Settings();
+                    appSettings.ModDirectories.SourceModPath = SourceModsPath;
+                    appSettings.ModDirectories.ClientModPath = ClientModsPath;
+                    appSettings.ModDirectories.ServerModPath = ServerModsPath;
+
+                    await Settings.SaveAsync(appSettings);
+                });
                 return _saveSettingsCommand;
             }
         }
-
-        public ICommand BrowseCommand { get; }
 
         private async void Browse(string fieldName)
         {
@@ -102,13 +112,11 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
                         ServerModsPath = result.Folder.Path;
                         break;
                 }
-
-
             }
-            else
+			else
             {
                 await Toast.Make($"The folder was not picked with error: {result.Exception.Message}", ToastDuration.Long).Show(cancellationToken);
             }
-        }
-    }
+		}
+	}
 }
