@@ -22,7 +22,7 @@
             <Button Text="Browse" Command="{Binding BrowseCommand}" CommandParameter="ClientModsPath" />
         </StackLayout>
         <StackLayout Orientation="Horizontal">
-            <Entry Placeholder="Server Mod Path" Text="{Binding ServerModPath}" />
+            <Entry Placeholder="Server Mod Path" Text="{Binding ServerModsPath}" />
             <Button Text="Browse" Command="{Binding BrowseCommand}" CommandParameter="ServerModsPath" />
         </StackLayout>
         <Button Text="Save" Command="{Binding SaveSettingsCommand}" />

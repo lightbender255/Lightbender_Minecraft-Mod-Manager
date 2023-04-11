@@ -103,7 +103,6 @@ namespace Lightbender_Minecraft_Mod_Manager.ViewModels
                 {
                     case "SourceModsPath":
                         SourceModsPath = result.Folder.Path;
-
                         break;
                     case "ClientModsPath":
                         ClientModsPath = result.Folder.Path;
